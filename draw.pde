@@ -4,14 +4,6 @@ int canvasWidth = MIN_INT; // this would be initialized in setup
 
 void draw() {
   clearCanvas();
-
-  /**
-   ** Finish this:
-   **
-   **  Based on the variables you populate from the ResultSet in eventsHandler, 
-   **  you should draw your visualization here. There is a white rectangle already 
-   **  drawn in clearCanvas() at rect(0, 0, canvasWidth,canvasWidth) (CORNER)
-   **/
    
   // Draw the scatter plot
   int xyGraphSize = 350;
@@ -76,4 +68,47 @@ void draw() {
     rect(x, y, monthGraphSize / 12, -h);
     x += monthGraphSize / 12;
   }
+  strokeWeight(0);
+  
+  // Draw a bar chart of fire days
+  int dayGraphSize = 350;
+  // background
+  fill(200);
+  rect(marginSize * 3 + monthGraphSize, marginSize * 3 + xyGraphSize, dayGraphSize, dayGraphSize);
+  // labels
+  fill(0);
+  text("Day", dayGraphSize / 2 + marginSize * 3 + monthGraphSize, xyGraphSize + marginSize * 7/2 + dayGraphSize + 5);
+  rotate(-PI / 2);
+  text("Number of Fires", -xyGraphSize - dayGraphSize / 2 - marginSize * 3, marginSize * 5 / 2 + monthGraphSize);
+  rotate(PI / 2);
+  textSize(15);
+  text("Fires by Day", dayGraphSize / 2 + marginSize * 3 + monthGraphSize, marginSize / 2 + xyGraphSize + marginSize * 2);
+  textSize(12);
+  // y axis
+  for (int i = 0; i <= 10; i++) {
+    text(i * 15, marginSize * 3 + monthGraphSize - 5, marginSize * 3 + xyGraphSize + dayGraphSize / 10 * (10 - i) + 5);
+  }
+  // draw things for each day
+  float y2 = xyGraphSize + marginSize * 3 + dayGraphSize;
+  float x2 = marginSize * 3 + monthGraphSize;
+  for (String m : days) {
+    // label
+    fill(0);
+    strokeWeight(0);
+    text(m, x2 + 20, y2 + 10);
+    // rectangle
+    Integer i = fireDays.get(m);
+    float h = map(i == null ? 0 : i, 0, 150, 0, dayGraphSize);
+    fill(#FF0000);
+    strokeWeight(1);
+    rect(x2, y2, dayGraphSize / 7, -h);
+    x2 += dayGraphSize / 7;
+  }
+  strokeWeight(0);
+  
+  // text showing how many fires are selected
+  fill(0);
+  textSize(15);
+  text(xValues.size() + " fires selected", xyGraphSize + marginSize * 2 + 200, 200);
+  textSize(12);
 }

@@ -64,6 +64,7 @@ void submitQuery() {
        xValues.clear();
        yValues.clear();
        fireMonths.clear();
+       fireDays.clear();
        
        // If the query was successful, you can iterate through the results here.
        // (Again, see http://docs.oracle.com/javase/tutorial/jdbc/basics/retrieving.html for examples)
@@ -85,6 +86,8 @@ void submitQuery() {
             yValues.add(y);
             Integer prev = fireMonths.get(month);
             fireMonths.put(month, (prev == null ? 0 : prev) + 1);
+            prev = fireDays.get(day);
+            fireDays.put(day, (prev == null ? 0 : prev) + 1);
         }
 
     } catch (Exception e) {
