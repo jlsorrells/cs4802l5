@@ -4,6 +4,8 @@ String table_name = "FORESTFIRE";
 
 ArrayList<Float> xValues = new ArrayList<Float>();
 ArrayList<Float> yValues = new ArrayList<Float>();
+Map<String, Integer> fireMonths = new HashMap<String, Integer>();
+Map<String, Integer> fireDays = new HashMap<String, Integer>();
 
 /**
  * @author: Fumeng Yang, Lane Harrison
@@ -61,6 +63,7 @@ void submitQuery() {
        
        xValues.clear();
        yValues.clear();
+       fireMonths.clear();
        
        // If the query was successful, you can iterate through the results here.
        // (Again, see http://docs.oracle.com/javase/tutorial/jdbc/basics/retrieving.html for examples)
@@ -80,6 +83,8 @@ void submitQuery() {
             // store x,y for scatter plot
             xValues.add(x);
             yValues.add(y);
+            Integer prev = fireMonths.get(month);
+            fireMonths.put(month, (prev == null ? 0 : prev) + 1);
         }
 
     } catch (Exception e) {
